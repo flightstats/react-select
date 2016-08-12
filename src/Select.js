@@ -152,7 +152,7 @@ const Select = React.createClass({
 	},
 
 	componentWillMount () {
-		this._instancePrefix = 'react-select-' + (++instanceId) + '-';
+		this._instancePrefix = 'react-select-' + (this.props.instanceId || ++instanceId) + '-';
 		const valueArray = this.getValueArray(this.props.value);
 
 		if (this.props.required) {
