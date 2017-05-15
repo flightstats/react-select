@@ -482,6 +482,8 @@ const Select = React.createClass({
 				}
 			return;
 			case 9: // tab
+			case 188: // comma
+			case 32: // spacebar
 				if (event.shiftKey || !this.state.isOpen || !this.props.tabSelectsValue) {
 					return;
 				}
