@@ -1,14 +1,14 @@
 {
-  "name": "react-select",
+  "name": "@flightstats/react-select",
   "version": "1.0.0-rc.3",
   "description": "A Select control built with and for ReactJS",
   "main": "lib/Select.js",
-  "style": "dist/react-select.min.css",
+  "style": "dist/@flightstats/react-select.min.css",
   "author": "Jed Watson",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JedWatson/react-select.git"
+    "url": "https://github.com/flightstats/react-select.git"
   },
   "dependencies": {
     "classnames": "^2.2.4",

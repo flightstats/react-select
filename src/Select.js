@@ -507,6 +507,14 @@ const Select = React.createClass({
 			case 40: // down
 				this.focusNextOption();
 			break;
+			case 32: // spacebar
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				event.preventDefault();
+				event.stopPropagation();
+				this.selectFocusedOption();
+			return;
 			case 33: // page up
 				this.focusPageUpOption();
 			break;
@@ -530,6 +538,14 @@ const Select = React.createClass({
 					event.preventDefault();
 					this.popValue();
 				}
+			return;
+			case 188: // comma
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				event.preventDefault();
+				event.stopPropagation();
+				this.selectFocusedOption();
 			return;
 			default: return;
 		}
