@@ -180,7 +180,7 @@ var Async = (function (_Component) {
 			}
 
 			if (onInputChange) {
-				onInputChange(inputValue);
+				inputValue = onInputChange(inputValue);
 			}
 
 			return this.loadOptions(inputValue);
@@ -265,7 +265,7 @@ function defaultChildren(props) {
 };
 module.exports = exports['default'];
 
-},{"./Select":"react-select","./utils/stripDiacritics":10,"react":undefined}],2:[function(require,module,exports){
+},{"./Select":"@flightstats/react-select","./utils/stripDiacritics":10,"react":undefined}],2:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -323,7 +323,7 @@ var AsyncCreatable = _react2['default'].createClass({
 
 module.exports = AsyncCreatable;
 
-},{"./Select":"react-select","react":undefined}],3:[function(require,module,exports){
+},{"./Select":"@flightstats/react-select","react":undefined}],3:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -641,7 +641,7 @@ function shouldKeyDownEventCreateNewOption(_ref6) {
 
 module.exports = Creatable;
 
-},{"./Select":"react-select","./utils/defaultFilterOptions":8,"./utils/defaultMenuRenderer":9,"react":undefined}],4:[function(require,module,exports){
+},{"./Select":"@flightstats/react-select","./utils/defaultFilterOptions":8,"./utils/defaultMenuRenderer":9,"react":undefined}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -1031,7 +1031,7 @@ module.exports = function stripDiacritics(str) {
 	return str;
 };
 
-},{}],"react-select":[function(require,module,exports){
+},{}],"@flightstats/react-select":[function(require,module,exports){
 /*!
   Copyright (c) 2016 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -1140,6 +1140,7 @@ var Select = _react2['default'].createClass({
 		clearRenderer: _react2['default'].PropTypes.func, // create clearable x element
 		clearValueText: stringOrNode, // title for the "clear" control
 		clearable: _react2['default'].PropTypes.bool, // should it be possible to reset value
+		commaSelectsValue: _react2['default'].PropTypes.bool, // whether comma acts as a tab complete when focus is in value selection
 		deleteRemoves: _react2['default'].PropTypes.bool, // whether backspace removes an item if there is no text input
 		delimiter: _react2['default'].PropTypes.string, // delimiter to use to join multiple values for the hidden field value
 		disabled: _react2['default'].PropTypes.bool, // whether the Select is disabled or not
@@ -1187,6 +1188,7 @@ var Select = _react2['default'].createClass({
 		scrollMenuIntoView: _react2['default'].PropTypes.bool, // boolean to enable the viewport to shift so that the full menu fully visible when engaged
 		searchable: _react2['default'].PropTypes.bool, // whether to enable searching feature or not
 		simpleValue: _react2['default'].PropTypes.bool, // pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
+		spacebarSelectsValue: _react2['default'].PropTypes.bool, // whether to treat space like a tab complete while focused to value selection
 		style: _react2['default'].PropTypes.object, // optional style to apply to the control
 		tabIndex: _react2['default'].PropTypes.string, // optional tab index of the control
 		tabSelectsValue: _react2['default'].PropTypes.bool, // whether to treat tabbing out while focused to be value selection
@@ -1210,6 +1212,7 @@ var Select = _react2['default'].createClass({
 			clearAllText: 'Clear all',
 			clearRenderer: _utilsDefaultClearRenderer2['default'],
 			clearValueText: 'Clear value',
+			commaSelectsValue: false,
 			deleteRemoves: true,
 			delimiter: ',',
 			disabled: false,
@@ -1237,6 +1240,7 @@ var Select = _react2['default'].createClass({
 			scrollMenuIntoView: true,
 			searchable: true,
 			simpleValue: false,
+			spacebarSelectsValue: false,
 			tabSelectsValue: true,
 			valueComponent: _Value2['default'],
 			valueKey: 'value'
@@ -1594,6 +1598,17 @@ var Select = _react2['default'].createClass({
 				// down
 				this.focusNextOption();
 				break;
+			case 32:
+				// spacebar
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				if (this.props.spacebarSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
+				}
+				return;
 			case 33:
 				// page up
 				this.focusPageUpOption();
@@ -1621,6 +1636,17 @@ var Select = _react2['default'].createClass({
 				if (!this.state.inputValue && this.props.deleteRemoves) {
 					event.preventDefault();
 					this.popValue();
+				}
+				return;
+			case 188:
+				// comma
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				if (this.props.commaSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
 				}
 				return;
 			default:
