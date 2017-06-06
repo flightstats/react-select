@@ -59,6 +59,7 @@ const Select = React.createClass({
 		clearRenderer: React.PropTypes.func,        // create clearable x element
 		clearValueText: stringOrNode,               // title for the "clear" control
 		clearable: React.PropTypes.bool,            // should it be possible to reset value
+		commaSelectsValue: React.PropTypes.bool,		// whether comma acts as a tab complete when focus is in value selection
 		deleteRemoves: React.PropTypes.bool,        // whether backspace removes an item if there is no text input
 		delimiter: React.PropTypes.string,          // delimiter to use to join multiple values for the hidden field value
 		disabled: React.PropTypes.bool,             // whether the Select is disabled or not
@@ -106,6 +107,7 @@ const Select = React.createClass({
 		scrollMenuIntoView: React.PropTypes.bool,   // boolean to enable the viewport to shift so that the full menu fully visible when engaged
 		searchable: React.PropTypes.bool,           // whether to enable searching feature or not
 		simpleValue: React.PropTypes.bool,          // pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
+		spacebarSelectsValue: React.PropTypes.bool, // whether to treat space like a tab complete while focused to value selection
 		style: React.PropTypes.object,              // optional style to apply to the control
 		tabIndex: React.PropTypes.string,           // optional tab index of the control
 		tabSelectsValue: React.PropTypes.bool,      // whether to treat tabbing out while focused to be value selection
@@ -129,6 +131,7 @@ const Select = React.createClass({
 			clearAllText: 'Clear all',
 			clearRenderer: defaultClearRenderer,
 			clearValueText: 'Clear value',
+			commaSelectsValue: false,
 			deleteRemoves: true,
 			delimiter: ',',
 			disabled: false,
@@ -156,6 +159,7 @@ const Select = React.createClass({
 			scrollMenuIntoView: true,
 			searchable: true,
 			simpleValue: false,
+			spacebarSelectsValue: false,
 			tabSelectsValue: true,
 			valueComponent: Value,
 			valueKey: 'value',
@@ -511,9 +515,11 @@ const Select = React.createClass({
 				if (event.shiftKey || !this.state.isOpen) {
 					return;
 				}
-				event.preventDefault();
-				event.stopPropagation();
-				this.selectFocusedOption();
+				if (this.props.spacebarSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
+				}
 			return;
 			case 33: // page up
 				this.focusPageUpOption();
@@ -543,9 +549,11 @@ const Select = React.createClass({
 				if (event.shiftKey || !this.state.isOpen) {
 					return;
 				}
-				event.preventDefault();
-				event.stopPropagation();
-				this.selectFocusedOption();
+				if (this.props.commaSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
+				}
 			return;
 			default: return;
 		}
