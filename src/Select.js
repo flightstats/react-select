@@ -61,29 +61,30 @@ const Select = createClass({
 		clearAllText: stringOrNode,                 // title for the "clear" control when multi: true
 		clearRenderer: PropTypes.func,        // create clearable x element
 		clearValueText: stringOrNode,               // title for the "clear" control
-		clearable: PropTypes.bool,            // should it be possible to reset value
-		deleteRemoves: PropTypes.bool,        // whether backspace removes an item if there is no text input
-		delimiter: PropTypes.string,          // delimiter to use to join multiple values for the hidden field value
-		disabled: PropTypes.bool,             // whether the Select is disabled or not
-		escapeClearsValue: PropTypes.bool,    // whether escape clears the value when the menu is closed
-		filterOption: PropTypes.func,         // method to filter a single option (option, filterString)
-		filterOptions: PropTypes.any,         // boolean to enable default filtering or function to filter the options array ([options], filterString, [values])
-		ignoreAccents: PropTypes.bool,        // whether to strip diacritics when filtering
-		ignoreCase: PropTypes.bool,           // whether to perform case-insensitive filtering
-		inputProps: PropTypes.object,         // custom attributes for the Input
-		inputRenderer: PropTypes.func,        // returns a custom input component
-		instanceId: PropTypes.string,         // set the components instanceId
-		isLoading: PropTypes.bool,            // whether the Select is loading externally or not (such as options being loaded)
-		joinValues: PropTypes.bool,           // joins multiple values into a single form field with the delimiter (legacy mode)
-		labelKey: PropTypes.string,           // path of the label value in option objects
-		matchPos: PropTypes.string,           // (any|start) match the start or entire string when filtering
-		matchProp: PropTypes.string,          // (any|label|value) which option property to filter on
-		menuBuffer: PropTypes.number,         // optional buffer (in px) between the bottom of the viewport and the bottom of the menu
-		menuContainerStyle: PropTypes.object, // optional style to apply to the menu container
-		menuRenderer: PropTypes.func,         // renders a custom menu with options
-		menuStyle: PropTypes.object,          // optional style to apply to the menu
-		multi: PropTypes.bool,                // multi-value input
-		name: PropTypes.string,               // generates a hidden <input /> tag with this field name for html forms
+		clearable: React.PropTypes.bool,            // should it be possible to reset value
+		commaSelectsValue: React.PropTypes.bool,		// whether comma acts as a tab complete when focus is in value selection
+		deleteRemoves: React.PropTypes.bool,        // whether backspace removes an item if there is no text input
+		delimiter: React.PropTypes.string,          // delimiter to use to join multiple values for the hidden field value
+		disabled: React.PropTypes.bool,             // whether the Select is disabled or not
+		escapeClearsValue: React.PropTypes.bool,    // whether escape clears the value when the menu is closed
+		filterOption: React.PropTypes.func,         // method to filter a single option (option, filterString)
+		filterOptions: React.PropTypes.any,         // boolean to enable default filtering or function to filter the options array ([options], filterString, [values])
+		ignoreAccents: React.PropTypes.bool,        // whether to strip diacritics when filtering
+		ignoreCase: React.PropTypes.bool,           // whether to perform case-insensitive filtering
+		inputProps: React.PropTypes.object,         // custom attributes for the Input
+		inputRenderer: React.PropTypes.func,        // returns a custom input component
+		instanceId: React.PropTypes.string,         // set the components instanceId
+		isLoading: React.PropTypes.bool,            // whether the Select is loading externally or not (such as options being loaded)
+		joinValues: React.PropTypes.bool,           // joins multiple values into a single form field with the delimiter (legacy mode)
+		labelKey: React.PropTypes.string,           // path of the label value in option objects
+		matchPos: React.PropTypes.string,           // (any|start) match the start or entire string when filtering
+		matchProp: React.PropTypes.string,          // (any|label|value) which option property to filter on
+		menuBuffer: React.PropTypes.number,         // optional buffer (in px) between the bottom of the viewport and the bottom of the menu
+		menuContainerStyle: React.PropTypes.object, // optional style to apply to the menu container
+		menuRenderer: React.PropTypes.func,         // renders a custom menu with options
+		menuStyle: React.PropTypes.object,          // optional style to apply to the menu
+		multi: React.PropTypes.bool,                // multi-value input
+		name: React.PropTypes.string,               // generates a hidden <input /> tag with this field name for html forms
 		noResultsText: stringOrNode,                // placeholder displayed when there are no matching search results
 		onBlur: PropTypes.func,               // onBlur handler: function (event) {}
 		onBlurResetsInput: PropTypes.bool,    // whether input is cleared on blur
@@ -104,19 +105,20 @@ const Select = createClass({
 		options: PropTypes.array,             // array of options
 		pageSize: PropTypes.number,           // number of entries to page when using page up/down keys
 		placeholder: stringOrNode,                  // field placeholder, displayed when there's no value
-		required: PropTypes.bool,             // applies HTML5 required attribute when needed
-		resetValue: PropTypes.any,            // value to use when you clear the control
-		scrollMenuIntoView: PropTypes.bool,   // boolean to enable the viewport to shift so that the full menu fully visible when engaged
-		searchable: PropTypes.bool,           // whether to enable searching feature or not
-		simpleValue: PropTypes.bool,          // pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
-		style: PropTypes.object,              // optional style to apply to the control
-		tabIndex: PropTypes.string,           // optional tab index of the control
-		tabSelectsValue: PropTypes.bool,      // whether to treat tabbing out while focused to be value selection
-		value: PropTypes.any,                 // initial field value
-		valueComponent: PropTypes.func,       // value component to render
-		valueKey: PropTypes.string,           // path of the label value in option objects
-		valueRenderer: PropTypes.func,        // valueRenderer: function (option) {}
-		wrapperStyle: PropTypes.object,       // optional style to apply to the component wrapper
+		required: React.PropTypes.bool,             // applies HTML5 required attribute when needed
+		resetValue: React.PropTypes.any,            // value to use when you clear the control
+		scrollMenuIntoView: React.PropTypes.bool,   // boolean to enable the viewport to shift so that the full menu fully visible when engaged
+		searchable: React.PropTypes.bool,           // whether to enable searching feature or not
+		simpleValue: React.PropTypes.bool,          // pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
+		spacebarSelectsValue: React.PropTypes.bool, // whether to treat space like a tab complete while focused to value selection
+		style: React.PropTypes.object,              // optional style to apply to the control
+		tabIndex: React.PropTypes.string,           // optional tab index of the control
+		tabSelectsValue: React.PropTypes.bool,      // whether to treat tabbing out while focused to be value selection
+		value: React.PropTypes.any,                 // initial field value
+		valueComponent: React.PropTypes.func,       // value component to render
+		valueKey: React.PropTypes.string,           // path of the label value in option objects
+		valueRenderer: React.PropTypes.func,        // valueRenderer: function (option) {}
+		wrapperStyle: React.PropTypes.object,       // optional style to apply to the component wrapper
 	},
 
 	statics: { Async, AsyncCreatable, Creatable },
@@ -132,6 +134,7 @@ const Select = createClass({
 			clearAllText: 'Clear all',
 			clearRenderer: defaultClearRenderer,
 			clearValueText: 'Clear value',
+			commaSelectsValue: false,
 			deleteRemoves: true,
 			delimiter: ',',
 			disabled: false,
@@ -158,6 +161,7 @@ const Select = createClass({
 			scrollMenuIntoView: true,
 			searchable: true,
 			simpleValue: false,
+			spacebarSelectsValue: false,
 			tabSelectsValue: true,
 			valueComponent: Value,
 			valueKey: 'value',
@@ -503,6 +507,16 @@ const Select = createClass({
 			case 40: // down
 				this.focusNextOption();
 			break;
+			case 32: // spacebar
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				if (this.props.spacebarSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
+				}
+			return;
 			case 33: // page up
 				this.focusPageUpOption();
 			break;
@@ -525,6 +539,16 @@ const Select = createClass({
 				if (!this.state.inputValue && this.props.deleteRemoves) {
 					event.preventDefault();
 					this.popValue();
+				}
+			return;
+			case 188: // comma
+				if (event.shiftKey || !this.state.isOpen) {
+					return;
+				}
+				if (this.props.commaSelectsValue) {
+					event.preventDefault();
+					event.stopPropagation();
+					this.selectFocusedOption();
 				}
 			return;
 			default: return;

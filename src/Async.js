@@ -150,7 +150,7 @@ export default class Async extends Component {
 		}
 
 		if (onInputChange) {
-			onInputChange(inputValue);
+			inputValue = onInputChange(inputValue);
 		}
 
 		return this.loadOptions(inputValue);
